@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play the Meno-'Pause' Button!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/blogindi.css" />
+    <link href="/css/form.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    
+  </head>
+  <body>
+    <!-- navbar -->
+    
+    <div class="top-blog-div">
+      <nav class="navbar navbar-expand-lg navbar-dark" id="navbar-landing" style="position:fixed;z-index: 100;width: 100vw!important;transition:cubic-bezier(0.075, 0.82, 0.165, 1);">
+          <div id="navbar-container" class="container-fluid navbar-container-unscrolled" >
+            <a class="navbar-brand" href="/" >
+              <img src="/images/logo.svg" alt="Health Highway Logo"  class="d-inline-block align-text-center">
+              <span style="color: #4ca9ee" >Health<span style="color:#29E7CD"> Highway</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" onclick="openNav()" >
+              <!-- <span class="navbar-toggler-icon"></span> -->
+              <i style="color: #4ca9ee" class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown" style="margin-right:50px">
+              <ul class="navbar-nav ml-auto" >
+                <button id="landing-joinus" type="button" class="btn btn-light" onclick="showmodal('booksession')" >Join Us</button>
+              </ul>
+            </div>
+            <!-- sidebar overlay -->
+            <div id="mySidenav" class="sidenav">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <button id="sidebar-joinus" type="button" class="btn btn-light" onclick="showmodal('booksession')">Join Us</button>
+            </div>
+          </div>
+        </nav>
+  </div>
+
+   <!-- Modal --> 
+        <!-- this modal is for call scheduling (starts here) -->
+        <div class="modal fade" id="schedulecall" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content" style="position: relative;">
+              <div class="modal-body-schedule" style="overflow:hidden">
+                      <div class="modal-choose-div" id="modal-service">
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para" >Tell us about your Goals<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('schedulecall', false)" aria-label="Close"></button>
+                              </div><br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start" >
+                                  <button type="button" onclick="saveService('fitness', false)" class="btn btn-primary btn-form-manual">Fitness</button>
+                                  <button type="button" onclick="saveService('skill', false)" class="btn btn-primary btn-form-manual">Advanced Yoga</button>
+                                  <button type="button" onclick="saveService('mindfulness', false)" class="btn btn-primary btn-form-manual">Better Mental Health</button>
+                                  <button type="button" onclick="saveService('ailment', false)" class="btn btn-primary btn-form-manual">Heal Ailments</button>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-choose-div" id="modal-ailment" style="display:none">
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para" >Please select a particular ailment<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('schedulecall', false)"></button>
+                              </div>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start flex-wrap" >
+                                  <button type="button" onclick="saveAilment('diabetes', false)" class="btn btn-primary btn-form-manual">Diabetes</button>
+                                  <button type="button" onclick="saveAilment('hypertension', false)" class="btn btn-primary btn-form-manual">Hypertension</button>
+                                  <button type="button" onclick="saveAilment('eye-problems', false)"  class="btn btn-primary btn-form-manual">Eye problems</button>
+                                  <button type="button" onclick="saveAilment('bone&joint-pains', false)" class="btn btn-primary btn-form-manual">Bone & Joint Pain</button>
+                                  <button type="button" onclick="saveAilment('thyroidism', false)" class="btn btn-primary btn-form-manual">Thyroidism</button>
+                                  <button type="button" onclick="saveAilment('breathing-issues', false)" class="btn btn-primary btn-form-manual">Breathing issues</button>
+                                  <button type="button" onclick="saveAilment('others', false)" class="btn btn-primary btn-form-manual">Others</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('modal-service')">Back</button>
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- <div class="modal-choose-div" id="modal-specific" >
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para" >Do you have any other specific problem?<span class="text-danger">*</span></p>
+                                  <button type="button"  class="btn-close" onclick="closemodal()" aria-label="Close"></button>
+                              </div><br>
+                              <div class="modal-type-second-sub" style="display:flex;flex-wrap: wrap;width: 100%;flex-direction: column;" >
+                                  <label for="forailment" class="form-label"></label>
+                                  <input autocomplete="off" onfocus="inputfocus()" onblur="inputdefocus()" type="text" autocomplete="off" class="form-control" id="forailment" required placeholder="your problem...">
+                              </div>
+                              <div class="modal-btngrp d-grid gap-2 col-6 d-md-flex justify-content-md-start" style="margin-left: -12px;">
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('modal-service')">Back</button>
+                                  <button type="button"  onclick="saveSpecific(false)" class="btn btn-primary btn-form-manual mr-3">Next</button>
+                              </div>
+                              
+                              <script type="text/javascript">
+                               document.getElementById("forailment").onkeypress = (function(e){
+                                  if(e.which == 13){
+                                      var inputVal = $(this).val();
+                                      saveSpecific(false);
+                                  }
+                              });
+                              </script>
+                          </div>
+                      </div> -->
+
+                      <div class="modal-choose-div" id="modal-name">
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para">Can we know your Name?<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('schedulecall', false)" aria-label="Close"></button>
+                              </div><br>
+                              <div  class="modal-type-second-sub" style="display:flex;flex-wrap: wrap;width: 100%;flex-direction: column;">
+                                  <label for="forname" class="form-label"></label>
+                                  <input autocomplete="off" onfocus="inputfocus()" onblur="inputdefocus()" type="text" class="form-control" id="forname" required placeholder="your name....">
+                                  <p class="modal-valid" id="valid-name" style="color: red;margin-top: 10px;display:none">**Please provide your name...</p>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('modal-service')">Back</button>
+                                  <button type="button"  onclick="saveName(false)" class="btn btn-primary btn-form-manual mr-3">Next</button>
+                              </div>
+                              <script type="text/javascript">
+                                  document.getElementById("forname").onkeypress = (function(e){
+                                  if(e.which == 13){
+                                      var inputVal = $(this).val();
+                                      saveName(false);
+                                  }
+                              });
+                              </script>
+                          </div>
+                              
+                      </div>
+
+                      <div class="modal-choose-div" id="modal-age">
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para">Please tell us your Age<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('schedulecall', false)" aria-label="Close"></button>
+                              </div><br>
+                              <div class="modal-type-second-sub" style="display:flex;flex-wrap: wrap;width: 100%;flex-direction: column;" >
+                                  <label for="forage" class="form-label"></label>
+                                  <input autocomplete="off" onfocus="inputfocus()" onblur="inputdefocus()" inputmode="numeric" class="form-control" id="forage" placeholder="your age....">
+                                  <p class="modal-valid" id="valid-age" style="color: red;margin-top: 10px;display:none">**Please provide your age...</p>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('modal-name')">Back</button>
+                                  <button type="button"  onclick="saveAge(false)" class="btn btn-primary btn-form-manual mr-3">Next</button>
+                              </div>
+                              
+                              <script type="text/javascript">
+                                  document.getElementById("forage").onkeypress = (function(e){
+                                  if(e.which == 13){
+                                      var inputVal = $(this).val();
+                                      saveAge(false);
+                                  }
+                              });
+                              </script>
+                          </div>
+                      </div>
+
+
+                      <div class="modal-choose-div" id="modal-profession" >
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para">Please tell us about your profession..</p>
+                                  <button type="button"  class="btn-close" onclick="closemodal('schedulecall', false)" aria-label="Close"></button>
+                              </div>
+                              <p class="modal-choose-extra-para">Your profession has deep impact on your health conditions</p>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start">
+                                  <button type="button" onclick="saveProfession('Student', false)" class="btn btn-primary btn-form-manual">Student</button>
+                                  <button type="button" onclick="saveProfession('Teacher', false)" class="btn btn-primary btn-form-manual">Teacher</button>
+                                  <button type="button" onclick="saveProfession('Home Maker', false)" class="btn btn-primary btn-form-manual">Home Maker</button>
+                                  <button type="button" onclick="saveProfession('Self-employed', false)" class="btn btn-primary btn-form-manual">Self-employed</button>
+                                  <button type="button" onclick="saveProfession('Other', false)" class="btn btn-primary btn-form-manual">Other</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('modal-age')">Back</button>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="modal-choose-div" id="modal-contact"  >
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para" >Please enter your Contact number<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('schedulecall', false)" aria-label="Close"></button>
+                              </div><br>
+                              <div class="modal-type-second-sub" style="display:flex;flex-wrap: wrap;width: 100%;flex-direction: column;" >
+                                  <label for="forcontact" class="form-label"></label>
+                                  <div class="input-group" >
+                                      <span class="input-group-text" id="inputGroupPrepend">+91</span>
+                                      <input autocomplete="off" onfocus="inputfocus()" onblur="inputdefocus()" style="max-width:400px" inputmode="numeric" class="form-control" id="forcontact" required placeholder="your mobile number...">
+                                  </div>
+                                  <p class="modal-valid" id="valid-contact" style="color: red;margin-top: 10px;display:none">**Please provide your phone number...</p>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('modal-profession')" >Back</button>
+                                  <button type="button" onclick="saveContact(false)" class="btn btn-primary btn-form-manual mr-3">Next</button>
+                              </div>
+                              <script type="text/javascript">
+                                  document.getElementById("forcontact").onkeypress = (function(e){
+                                  if(e.which == 13){
+                                      var inputVal = $(this).val();
+                                      saveContact(false);
+                                  }
+                              });
+                              </script>
+                          </div>
+                      </div>
+
+                      <div class="modal-choose-div" id="modal-sale" >
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para">Preferred time of calling</p>
+                                  <button type="button"  class="btn-close" onclick="closemodal('schedulecall', false)" aria-label="Close"></button>
+                              </div>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start flex-wrap">
+                                  <button type="button" onclick="saveSaleTime('9:00 AM to 12:00 NOON', false)" class="btn btn-primary btn-form-manual">9:00 AM to 12:00 NOON</button>
+                                  <button type="button" onclick="saveSaleTime('12:00 NOON to 3:00PM', false)" class="btn btn-primary btn-form-manual">12:00 NOON to 3:00PM</button>
+                                  <button type="button" onclick="saveSaleTime('3:00 PM to 6:00 PM', false)" class="btn btn-primary btn-form-manual">3:00 PM to 6:00 PM</button>
+                                  <button type="button" onclick="saveSaleTime('6:00 PM to 9:00PM', false)" class="btn btn-primary btn-form-manual">6:00 PM to 9:00PM</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('modal-contact')">Back</button>
+                                  <button class="btn btn-primary btn-form-manual mr-3" id = "show-loading" style="display:none">
+                                      <span class="spinner-grow spinner-grow-sm"></span>
+                                      Submitting..
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="modal-choose-div" id="modal-success"  >
+                          <div style="width: 100%;height: 100%;display: flex;flex-direction: column;justify-content:center;align-items: center;text-align: center;" >
+                              <h1>Congratulations!</h1><br>
+                              <p>You have been successfully registered! Our executives will get in touch with you soon.</p><br>
+                              <button type="button" onclick="closemodal('schedulecall', false)" class="btn btn-primary btn-form-manual">Ok</button>
+                          </div>
+                      </div>
+              </div>
+              <div class="progress">
+                  <div class="progress-bar" id="progress-value" role="progressbar" style="width: 10%;background-color:#4CA9EE" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+          </div>
+          </div>
+      </div>
+      <!-- modal for call scheduling ends here -->
+      <!-- modal for booking session starts here -->
+      <div class="modal fade" id="booksession" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content" style="position: relative;">
+              <div class="modal-body-book" style="overflow:hidden">
+                      <div class="modal-choose-div" id="book-modal-service">
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para" >Tell us about your Goals<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('booksession', false)" aria-label="Close"></button>
+                              </div><br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start" >
+                                  <button type="button" onclick="saveService('fitness', true)" class="btn btn-primary btn-form-manual">Fitness</button>
+                                  <button type="button" onclick="saveService('skill', true)" class="btn btn-primary btn-form-manual">Advanced Yoga</button>
+                                  <button type="button" onclick="saveService('mindfulness', true)" class="btn btn-primary btn-form-manual">Better Mental Health</button>
+                                  <button type="button" onclick="saveService('ailment', true)" class="btn btn-primary btn-form-manual">Heal Ailments</button>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-choose-div" id="book-modal-ailment" style="display:none">
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para" >Please select a particular ailment<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('booksession', false)"></button>
+                              </div>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start flex-wrap" >
+                                  <button type="button" onclick="saveAilment('diabetes', true)" class="btn btn-primary btn-form-manual">Diabetes</button>
+                                  <button type="button" onclick="saveAilment('hypertension', true)" class="btn btn-primary btn-form-manual">Hypertension</button>
+                                  <button type="button" onclick="saveAilment('eye-problems', true)"  class="btn btn-primary btn-form-manual">Eye problems</button>
+                                  <button type="button" onclick="saveAilment('bone&joint-pains', true)" class="btn btn-primary btn-form-manual">Bone & Joint Pain</button>
+                                  <button type="button" onclick="saveAilment('thyroidism', true)" class="btn btn-primary btn-form-manual">Thyroidism</button>
+                                  <button type="button" onclick="saveAilment('breathing-issues', true)" class="btn btn-primary btn-form-manual">Breathing issues</button>
+                                  <button type="button" onclick="saveAilment('others', true)" class="btn btn-primary btn-form-manual">Others</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('book-modal-service')">Back</button>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- <div class="modal-choose-div" id="book-modal-specific" >
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para" >Do you have any other specific problem?<span class="text-danger">*</span></p>
+                                  <button type="button"  class="btn-close" onclick="closemodal()" aria-label="Close"></button>
+                              </div><br>
+                              <div class="modal-type-second-sub" style="display:flex;flex-wrap: wrap;width: 100%;flex-direction: column;" >
+                                  <label for="forailmentbook" class="form-label"></label>
+                                  <input autocomplete="off" onfocus="inputfocus()" onblur="inputdefocus()" type="text" class="form-control" id="forailmentbook" required placeholder="your problem...">
+                                  <p class="modal-valid" id="valid-ailment">**Please describe it so that we can cater u better..</p>
+                              </div>
+                              <div class="modal-btngrp d-grid gap-2 col-6 d-md-flex justify-content-md-start" style="margin-left: -12px;">
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('book-modal-service')">Back</button>
+                                  <button type="button"  onclick="saveSpecific(true)" class="btn btn-primary btn-form-manual mr-3">Next</button>
+                              </div>
+                              
+                              <script type="text/javascript">
+                                  document.getElementById("forailmentbook").onkeypress = (function(e){
+                                  if(e.which == 13){
+                                      var inputVal = $(this).val();
+                                      saveSpecific(true);
+                                  }
+                              });
+                              </script>
+                          </div>
+                      </div> -->
+                      <div class="modal-choose-div" id="book-modal-name">
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para">Can we know your Name?<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('booksession', false)" aria-label="Close"></button>
+                              </div><br>
+                              <div  class="modal-type-second-sub" style="display:flex;flex-wrap: wrap;width: 100%;flex-direction: column;">
+                                  <label for="fornamebook" class="form-label"></label>
+                                  <input autocomplete="off" onfocus="inputfocus()" onblur="inputdefocus()" type="text" class="form-control" id="fornamebook" required placeholder="your name....">
+                                  <p class="modal-valid" id="valid-name-book" style="color: red;margin-top: 10px;display:none">**Please provide your name...</p>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('book-modal-service')">Back</button>
+                                  <button type="button"  onclick="saveName(true)" class="btn btn-primary btn-form-manual mr-3">Next</button>
+                              </div>
+                              <script type="text/javascript">
+                                  document.getElementById("fornamebook").onkeypress = (function(e){
+                                  if(e.which == 13){
+                                      var inputVal = $(this).val();
+                                      saveName(true);
+                                  }
+                              });
+                              </script>
+                          </div>
+                              
+                      </div>
+                      <div class="modal-choose-div" id="book-modal-age">
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para">Please tell us your Age<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('booksession', false)" aria-label="Close"></button>
+                              </div><br>
+                              <div class="modal-type-second-sub" style="display:flex;flex-wrap: wrap;width: 100%;flex-direction: column;" >
+                                  <label for="foragebook" class="form-label"></label>
+                                  <input autocomplete="off" onfocus="inputfocus()" onblur="inputdefocus()" inputmode="numeric" class="form-control" id="foragebook" placeholder="your age....">
+                                  <p class="modal-valid" id="valid-age-book" style="color: red;margin-top: 10px;display:none">**Please provide your age...</p>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('book-modal-name')">Back</button>
+                                  <button type="button"  onclick="saveAge(true)" class="btn btn-primary btn-form-manual mr-3">Next</button>
+                              </div>
+                              
+                              <script type="text/javascript">
+                                  document.getElementById("foragebook").onkeypress = (function(e){
+                                  if(e.which == 13){
+                                      var inputVal = $(this).val();
+                                      saveAge(true);
+                                  }
+                              });
+                              </script>
+                          </div>
+                      </div>
+                      <div class="modal-choose-div" id="book-modal-profession" >
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para">Please tell us about your profession..</p>
+                                  <button type="button"  class="btn-close" onclick="closemodal('booksession', false)" aria-label="Close"></button>
+                              </div>
+                              <p class="modal-choose-extra-para">Your profession has deep impact on your health conditions</p>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start">
+                                  <button type="button" onclick="saveProfession('Student', true)" class="btn btn-primary btn-form-manual">Student</button>
+                                  <button type="button" onclick="saveProfession('Teacher', true)" class="btn btn-primary btn-form-manual">Teacher</button>
+                                  <button type="button" onclick="saveProfession('Home Maker', true)" class="btn btn-primary btn-form-manual">Home Maker</button>
+                                  <button type="button" onclick="saveProfession('Self-employed', true)" class="btn btn-primary btn-form-manual">Self-employed</button>
+                                  <button type="button" onclick="saveProfession('Other', true)" class="btn btn-primary btn-form-manual">Other</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('book-modal-age')">Back</button>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="modal-choose-div" id="book-modal-contact"  >
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para" >Please enter your Contact number<span class="text-danger">*</span></p>
+                                  <button type="button" class="btn-close" onclick="closemodal('booksession', false)" aria-label="Close"></button>
+                              </div><br>
+                              <div class="modal-type-second-sub" style="display:flex;flex-wrap: wrap;width: 100%;flex-direction: column;" >
+                                  <label for="forcontactbook" class="form-label"></label>
+                                  <div class="input-group" >
+                                      <span class="input-group-text" id="inputGroupPrepend">+91</span>
+                                      <input autocomplete="off" onfocus="inputfocus()" onblur="inputdefocus()" style="max-width:400px" inputmode="numeric" class="form-control" id="forcontactbook" required placeholder="your mobile number...">
+                                  </div>
+                                  <p class="modal-valid" id="valid-contact-book" style="color: red;margin-top: 10px;display:none">**Please provide your phone number...</p>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('book-modal-profession')">Back</button>
+                                  <button type="button"  onclick="saveContact(true)" class="btn btn-primary btn-form-manual mr-3">Next</button>
+                              </div>
+                              <script type="text/javascript">
+                                  document.getElementById("forcontactbook").onkeypress = (function(e){
+                                  if(e.which == 13){
+                                      var inputVal = $(this).val();
+                                      saveContact(true);
+                                  }
+                              });
+                              </script>
+                          </div>
+                      </div>
+                      <div class="modal-choose-div" id="book-modal-sale" >
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para">Preferred time of calling</p>
+                                  <button type="button"  class="btn-close" onclick="closemodal('booksession', false)" aria-label="Close"></button>
+                              </div>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start flex-wrap">
+                                  <button type="button" onclick="saveSaleTime('9:00 AM to 12:00 NOON', true)" class="btn btn-primary btn-form-manual">9:00 AM to 12:00 NOON</button>
+                                  <button type="button" onclick="saveSaleTime('12:00 NOON to 3:00PM', true)" class="btn btn-primary btn-form-manual">12:00 NOON to 3:00PM</button>
+                                  <button type="button" onclick="saveSaleTime('3:00 PM to 6:00 PM', true)" class="btn btn-primary btn-form-manual">3:00 PM to 6:00 PM</button>
+                                  <button type="button" onclick="saveSaleTime('6:00 PM to 9:00PM', true)" class="btn btn-primary btn-form-manual">6:00 PM to 9:00PM</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('book-modal-contact')">Back</button>
+                                  <button class="btn btn-primary btn-form-manual mr-3" id = "book-show-loading" style="display:none">
+                                      <span class="spinner-grow spinner-grow-sm"></span>
+                                      Submitting..
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                       <!-- <div class="modal-choose-div" id="book-modal-session" >
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para">Please Choose one of the Session packs</p>
+                                  <button type="button"  class="btn-close" onclick="closemodal()" aria-label="Close"></button>
+                              </div>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start">
+                                  <button type="button" onclick="booksession('1')" class="btn btn-primary btn-form-manual">1 Session</button>
+                                  <button type="button" onclick="booksession('16')" class="btn btn-primary btn-form-manual">16 Sessions</button>
+                                  <button type="button" onclick="booksession('24')" class="btn btn-primary btn-form-manual">24 Sessions</button>
+                                  <button type="button" onclick="booksession('30')" class="btn btn-primary btn-form-manual">30 Sessions</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual" onclick="goBack('book-modal-sale')">Back</button>
+                              </div>
+                          </div>
+                      </div> -->
+                      <!-- <div class="modal-choose-div" id="book-modal-week" >
+                          <div>
+                              <div class="modal-choose-first-sub" >
+                                  <p id="modal-second-div-para">How many days a week can you do Yoga?</p>
+                                  <button type="button"  class="btn-close" onclick="closemodal()" aria-label="Close"></button>
+                              </div>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start flex-wrap">
+                                  <button type="button" onclick="weekchose('1')" class="btn btn-primary btn-form-manual btn-sm">I will start with 1 day a week</button>
+                                  <button type="button" onclick="weekchose('2')" class="btn btn-primary btn-form-manual btn-sm">Just 2 days, I'm really busy</button>
+                                  <button type="button" onclick="weekchose('3')" class="btn btn-primary btn-form-manual btn-sm">For 3 days, I have some time</button>
+                                  <button type="button" onclick="weekchose('4')" class="btn btn-primary btn-form-manual btn-sm">Let's give 4 my best</button>
+                                  <button type="button" onclick="weekchose('5')" class="btn btn-primary btn-form-manual btn-sm">5 is a Prime and so is Yoga</button>
+                                  <button type="button" onclick="weekchose('6')" class="btn btn-primary btn-form-manual btn-sm">6 days a week is easy for me</button>
+                                  <button type="button" onclick="weekchose('7')" class="btn btn-primary btn-form-manual btn-sm">I will not leave any day</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual" onclick="goBack('book-modal-sale')">Back</button>
+                              </div>
+                          </div>
+                      </div> -->
+                      <!-- <div class="modal-choose-div" id="book-modal-time" >
+                          <div>
+                              <div class="modal-choose-first-sub">
+                                  <p id="modal-second-div-para">Can you tell about preferred timings?</p>
+                                  <button type="button"  class="btn-close" onclick="closemodal()" aria-label="Close"></button>
+                              </div>
+                              <br>
+                              <div class="modal-choose-second-sub d-grid gap-2 col-6 d-md-flex justify-content-md-start flex-wrap">
+                                  <button type="button" onclick="timechose('5am')" class="btn btn-primary btn-form-manual">Morning 5am</button>
+                                  <button type="button" onclick="timechose('6am')" class="btn btn-primary btn-form-manual">Morning 6am</button>
+                                  <button type="button" onclick="timechose('7am')" class="btn btn-primary btn-form-manual">Morning 7am</button>
+                                  <button type="button" onclick="timechose('8am')" class="btn btn-primary btn-form-manual">Morning 8am</button>
+                                  <button type="button" onclick="timechose('5pm')" class="btn btn-primary btn-form-manual">Morning 5pm</button>
+                                  <button type="button" onclick="timechose('6pm')" class="btn btn-primary btn-form-manual">Morning 6pm</button>
+                                  <button type="button" onclick="timechose('7pm')" class="btn btn-primary btn-form-manual">Morning 7pm</button>
+                              </div>
+                              <div class="modal-btngrp" >
+                                  <button type="button" class="btn btn-primary btn-form-manual mr-3" onclick="goBack('book-modal-week')" >Back</button>
+                                  <button class="btn btn-primary btn-form-manual mx-2" id = "book-show-loading" style="display:none">
+                                      <span class="spinner-grow spinner-grow-sm"></span>
+                                      Submitting..
+                                  </button>
+                              </div>
+                          </div>
+                      </div> -->
+                      <div class="modal-choose-div" id="book-modal-success">
+                          <div style="width: 100%;height: 100%;display: flex;flex-direction: column;justify-content:center;align-items: center;text-align: center;" >
+                              <h1>Congratulations!</h1><br>
+                              <p>You have been successfully registered! Our executives will get in touch with you soon.</p><br>
+                              <button type="button" onclick="closemodal('booksession', false)" class="btn btn-primary btn-form-manual">Ok</button>
+                          </div>
+                      </div>
+                      
+              </div>
+              <div class="progress">
+                  <div class="progress-bar" id="progress-value-book" role="progressbar" style="width: 10%;background-color:#4CA9EE" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+          </div>
+          </div>
+      </div>
+      <!-- modal for booking session ends here -->
+
+    <div class="blogTitle">
+      <p class="date text-center">28th JUNE 2021</p>
+      <p class="blog-heading text-center">Menopause</p>
+      <!-- <p class="subText text-center">Yoga: A Journey from Pain to Gain</p> -->
+      <div class="socialMedia">
+        <a href="https://www.linkedin.com/company/healthhighway/" target="_blank" ><i class="fa fa-linkedin fa-2x" style="color: #0e76a8 ;" aria-hidden="true"></i></a>
+        <a href="https://www.instagram.com/healthhighwayin/" target="_blank" ><i class="fa fa-instagram fa-2x" style="color: #fb3958;"></i></a>
+        <a href="https://www.facebook.com/healthhighwayin/" target="_blank" ><i class="fa fa-facebook-square fa-2x" style="color: #4267B2;"></i></a>
+      </div>
+    </div>
+    
+    <div class="blog-main-image" style="background-image: url('/images/menopause.png')"></div>
+    <div class="blogText">
+        <p style="font-weight: bold;" >Play the Meno-'Pause' Button!</p>
+        <p><span style="font-size:46px;" >H</span>ave you been experiencing mood shifts and weight gain? Constantly being cranky or just being too emotional to any criticism being thrown at you? As it is a biological process, Menopause is caused when the ovaries start to secrete less of both oestrogen and progesterone  - the female hormones - and can trigger a myriad of bothersome symptoms. Hence, this might be the reason behind your anxiety or irritability. Insomnia is a common problem too. Are you too worried about your sudden weight gain? Irregular sleep patterns and age-related restrictions in gaining metabolism can be the reason behind it. </p>
+        <p>BUT, (*drum rolls*) what if I tell you that you can find yourself peace and calm and find a place to relax your senses? Yes, I think you got the hint - it is Yoga. Many women have found that yoga, including therapeutic and supportive poses, can enhance the annoying and undesirable side effects of menopause, including hot flashes, insomnia, anxiety and other problems. Yoga also in controlling hormonal imbalances. Asanas such as Uttanasana (Standing Forward Bend), Prasarita Padottanasana (Wide-Legged Standing Forward Bend) can help reduce the annoyance and deteriorating mental health. Other asanas such as Supta Baddha Konasana and Sarvangasana can be beneficial too.</p>
+        <p>Moreover and, in simple words, Menopause can be the b-word sometimes. All you need is a partner in crime who is going through the same condition in her life too. A partner in crime who is compassionate, caring and kind enough towards your unstable state of mind and health. </p><br>
+        <p>What if I tell you that you can combine the benefits of yoga, as well as find yourself a friend, all while taking care of yourself? YES (*drum rolls again*), WE WELCOME YOU TO HEALTH HIGHWAY.</p><br>
+        <p>Health Highway is starting an online program with professional yoga trainers for women who are going through menopause. Health highway invites you to join this initiative as it promotes wellness, happiness, safety, security and prosperity.  This program will benefit you effectively and efficiently. Here, you will be able to find mates people who are going through the same stage as you are. You will be given a proper diet chart by our trainers, which means that your health and well-being will also be taken care of. Assuring you the feeling of self-reliance and comfort, we are here to help you out. Your mental, physical and psychological health is important, but so are you! We are here to make you feel better.</p><br>
+        <p style="font-weight: bold;">Join us today. Expecting to see you soon!</p>
+    </div>
+    <div class="bottomDiv">
+        <button type="button" class="btn btn-primary" onclick="showmodal('booksession')" >Book a Session</button>
+        <!-- <a href="" style="color:#4CA9EE"  class="share">Share the article</a> -->
+        <span class="likebtn-wrapper" data-theme="custom" data-icon_l_c_v="#4ca9ee" data-white_label="true" data-rich_snippet="true" data-identifier="item_1" data-dislike_enabled="false" data-icon_dislike_show="false"></span>
+        <div class="socialMedia socialMediaBottom">
+            <span><a href="https://www.linkedin.com/company/healthhighway/" target="_blank" ><i class="fa fa-linkedin fa-2x" style="color: #0e76a8 ;" aria-hidden="true"></i></a></span>
+            <span><a href="https://www.instagram.com/healthhighwayin/" target="_blank" ><i class="fa fa-instagram fa-2x" style="color: #fb3958;"></i></a></span>
+            <span><a href="https://www.facebook.com/healthhighwayin/" target="_blank" ><i class="fa fa-facebook-square fa-2x" style="color: #4267B2;"></i></a></span>
+        </div>
+    </div>
+    <br><br>
+
+    <div class="footer" >
+      <div class="container-fluid" >
+          <div class="row">
+              <div class="col-lg-4 col-md-4 col-12 footer-extra ft1" >
+                  <h1 style="font-family: 'Barlow', sans-serif; font-display: swap;">Our Address</h1>
+                  <p>Health Highway Private Limited<br>Plot No.14, Shiva Enclave, Rishikesh <br>Uttarakhand - 249201</p>
+                  <i class="fa fa-phone sil" style="color: #fff!important;"></i><a href="tel:+91-9520785339" ><span class="footer-span-txt text-white" >+91-9520785339</span></a><br>
+                  <i class="fa fa-envelope-o sil" style="color: #fff!important;"></i><a href="mailto:info@healthhighway.co.in" ><span class="footer-span-txt for-email text-white" >info@healthhighway.co.in</span></a>
+              </div>
+              <div class="col-lg-4 col-md-4 col-12 footer-extra ft2" >
+                  <h1 style="font-family: 'Barlow', sans-serif; font-display: swap;">More About us</h1>
+                  <a href="/" ><p>Home</p></a>
+                  <a onclick="showmodal('booksession')" style="cursor: pointer" ><p>Book a Session</p></a>
+                  <a onclick="showmodal('schedulecall')" style="cursor: pointer;" ><p>Schedule a call Back</p></a>
+                  <a style="cursor: pointer;" href="/blogs"  ><p>Our Blogs</p></a>
+              </div>
+              <div class="col-lg-4 col-md-4 col-12 footer-extra ft3" >
+                <h1 style="font-family: 'Barlow', sans-serif; font-display: swap;">Social Links</h1>
+                <a href="https://www.facebook.com/healthhighwayin/" target="_blank" ><i class="fa fa-facebook-square" style="color: #fff!important;" aria-hidden="true"></i><span class="footer-span-txt" >Facebook</span></a><br>
+                <a href="https://www.instagram.com/healthhighwayin/" target="_blank" ><i class="fa fa-instagram" style="color: #fff!important;" aria-hidden="true"></i><span class="footer-span-txt" >Instagram</span ></a><br>
+                <a href="https://www.linkedin.com/company/healthhighway/" target="_blank" ><i class="fa fa-linkedin-square" style="color: #fff!important;" aria-hidden="true"></i><span class="footer-span-txt" >Linkedin</span></a>
+                <div class="contactus-btn" >
+                  <a style="cursor: pointer;" onclick="showmodal('schedulecall')" >Contact Us</a>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="cp" >
+      <div class="cp1" style="font-family: 'Barlow', sans-serif; font-display: swap;" ><p>Copyright © 2020-21 All Rights Reserved</p></div>
+      <div class="cp2" >
+        <a href="/policy" style="font-family: 'Barlow', sans-serif; font-display: swap;" ><p>Privacy Policy</p></a>
+        <p>|</p>
+        <a href="/tnc" style="font-family: 'Barlow', sans-serif; font-display: swap;" ><p>Terms & Conditions</p></a>
+      </div>
+    </div>
+
+    <script>(function(d,e,s){if(d.getElementById("likebtn_wjs"))return;a=d.createElement(e);m=d.getElementsByTagName(e)[0];a.async=1;a.id="likebtn_wjs";a.src=s;m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+          <script src="js/form.js" ></script>
+    <script>
+        var myNav = document.getElementById('navbar-landing');
+        var navCont = document.getElementById('navbar-container');
+        window.onscroll = function() {myFunction()};
+    
+        function myFunction() {
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            myNav.classList.add("nav-colored");
+            myNav.classList.remove("nav-transparent");
+            navCont.classList.add("navbar-container-scrolled");
+            navCont.classList.remove("navbar-container-unscrolled");
+            // var cols = document.getElementsByClassName("nav-link");
+            // for(i = 0; i < cols.length; i++) {
+            //     cols[i].style.color = '#4CA9EE';
+            // }
+            document.getElementsByClassName("fa-bars")[0].style.color="#4CA9EE";
+        } else {
+                // var cols = document.getElementsByClassName("nav-link");
+                // for(i = 0; i < cols.length; i++) {
+                //     cols[i].style.color = '#fff';
+                // }
+                myNav.classList.add("nav-transparent");
+                myNav.classList.remove("nav-colored");
+                navCont.classList.remove("navbar-container-scrolled");
+                 navCont.classList.add("navbar-container-unscrolled");
+                // document.getElementsByClassName("fa-bars")[0].style.color="#fff";
+        }
+        }
+    </script>
+     <script>
+      function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      }
+      
+      function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      }
+  </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  </body>
+
+</html>
+

@@ -1,0 +1,216 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/images/Highway To Health.png">
+    <title>Register with us</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@700&display=swap" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/css/phone.css" rel="stylesheet">
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script>
+      var googleUser = {};
+      var startApp = function() {
+        gapi.load('auth2', function(){
+          // Retrieve the singleton for the GoogleAuth library and set up the client.
+          auth2 = gapi.auth2.init({
+            client_id: '403433220043-cbmjvt9e7fkeglihn61obq1pruickdlh.apps.googleusercontent.com',
+            cookiepolicy: 'single_host_origin',
+            prompt : 'consent'
+            // Request scopes in addition to 'profile' and 'email'
+            //scope: 'additional_scope'
+          });
+          attachSignin(document.getElementById('customBtn'));
+        });
+      };
+
+        function attachSignin(element) {
+          console.log(element.id);
+          auth2.attachClickHandler(element, {},
+            function(googleUser) {
+              document.getElementById('name').innerText = "Signed in: " +
+                  googleUser.getBasicProfile().getName() + " " + googleUser.getBasicProfile().getEmail();
+            }, function(error) {
+              alert(JSON.stringify(error, undefined, 2));
+            });
+        }
+    </script>
+      <style type="text/css">
+        #customBtn {
+          display: inline-block;
+          background: white;
+          color: #444;
+          width: 190px;
+          border-radius: 5px;
+          border: thin solid #888;
+          box-shadow: 1px 1px 1px grey;
+          white-space: nowrap;
+        }
+        #customBtn:hover {
+          cursor: pointer;
+        }
+        span.label {
+          font-family: serif;
+          font-weight: normal;
+        }
+        span.icon {
+          background: url('/images/google.png') transparent 5px 50% no-repeat;
+          display: inline-block;
+          vertical-align: middle;
+          width: 42px;
+          height: 42px;
+        }
+        span.buttonText {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 42px;
+          padding-right: 42px;
+          font-size: 14px;
+          font-weight: bold;
+          /* Use the Roboto font that is loaded in the <head> */
+          font-family: 'Roboto', sans-serif;
+        }
+      </style>
+
+
+  <body>
+    <img class="mb-4" src="/images/logo.svg" alt="" width="100" height="60">
+    <p id="mobile" class="mb-3">Enter your mobile number for verification</p>
+    <p id="code" class="mb-5" >Please enter the OTP sent on your registered mobile number</p>
+
+    <form id="number-form" class="form-signin">
+      <label for="inputnumber" class="sr-only">Mobile Number</label>
+      <input type="text" id="inputnumber" class="form-control" value="+91" placeholder="+9163******" required autofocus>
+      <div class="mt-3" id="recaptcha-verifier" ></div>
+      <div onclick="phoneauth()" class="submit-gif-btn" id="phonediv" style="pointer-events: none;" >
+        <img id="phonegifimg" src="/images/sp.gif" >
+        <p id="phonesubmitp" >Get the OTP</p>
+      </div>
+      <br>
+      <div id="gSignInWrapper">
+        <span class="label">Sign in with:</span>
+        <div id="customBtn" class="customGPlusSignIn">
+          <span class="icon"></span>
+          <span class="buttonText">Google</span>
+        </div>
+      </div>
+      <p class="mt-5 mb-3" style="color: white;">&copy; 2020-2021</p>
+    </form>
+
+
+    <form id="code-form" class="form-signin">
+      <label for="inputcode" class="sr-only">Enter OTP</label>
+      <input type="text" id="inputcode" class="form-control" placeholder="Enter OTP" required autofocus>
+      <div onclick="verifycode()" class="submit-gif-btn" id="codediv" >
+        <img id="codegifimg" src="/images/sp.gif" >
+        <p id="codesubmitp" >Confirm</p>
+      </div>
+      <p class="mt-5 mb-3" style="color: white;">&copy; 2020-2021</p>
+    </form>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var firebaseConfig = {
+        apiKey: "AIzaSyCj_0en8nIIHQXE_5aa-pwjnEgIJ3McA9w",
+        authDomain: "healthhighway-45963.firebaseapp.com",
+        databaseURL: "https://healthhighway-45963.firebaseio.com",
+        projectId: "healthhighway-45963",
+        storageBucket: "healthhighway-45963.appspot.com",
+        messagingSenderId: "716392922291",
+        appId: "1:716392922291:web:ef7708be5a170c42a544c6",
+        measurementId: "G-B3ZVBEZ2H2"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        window.onload = function(){
+            render();
+            startApp();
+        }
+
+        async function render() {
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-verifier');
+            recaptchaVerifier.render();
+            recaptchaVerifier.verify().then(token => {
+              console.log(token);
+              document.getElementById("phonediv").style.pointerEvents="auto";
+            })
+        }
+        
+       async function phoneauth() {
+           document.getElementById("phonegifimg").style.display="block";
+           document.getElementById("phonesubmitp").style.display="none";
+           document.getElementById("phonediv").style.pointerEvents="none";
+            var number = document.getElementById("inputnumber").value;
+            if(number == '' || number.length < 13)
+            {
+               window.location.replace("/register");
+            }
+            console.log(number);
+            firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier).then((confirmationResult) => {
+                  console.log(confirmationResult);
+                  alert("An OTP has been sent to your provided mobile number")
+                  // window.confirmationResult = confirmationResult;
+                  codeResult = confirmationResult;
+                  document.getElementById("number-form").style.display = "none";
+                  document.getElementById("code-form").style.display = "block";
+                  document.getElementById("mobile").style.display = "none";
+                  document.getElementById("code").style.display = "block";
+            }).catch(err => {
+                if(err)
+                {
+                  console.log(err);
+                   alert("Please try your number after some time");
+                   window.location.replace("/phone");
+                }
+            })
+        }       
+
+        function verifycode() {
+           document.getElementById("codegifimg").style.display="block";
+           document.getElementById("codesubmitp").style.display="none";
+           document.getElementById("codediv").style.pointerEvents="none";
+            var code = document.getElementById("inputcode").value;
+            if(code == '' || code.length <=5)
+            {
+              alert("You have entered an incorrect OTP code");
+              window.location.replace("/phone");
+            }
+            var number = document.getElementById("inputnumber").value;
+            codeResult.confirm(code).then(async(result) => {
+              console.log(result);
+              const response = await fetch("/phoneauth", {
+                method  :"POST",
+                mode : "same-origin",
+                headers : {
+                  'Content-type' : 'application/json'
+                },
+                body : JSON.stringify({phoneNumber : number})
+              });
+
+              const decode = await response.json();
+              // alert(decode);
+              if(decode.old)
+              {
+                 window.location.replace("/");
+              }
+              else
+              {
+                window.location.replace("/register-with-email");
+              }
+            }).catch(err => {
+                 window.location.replace("/auth-fail");
+            })
+        }
+
+    </script>
+
+  </body>
+</html>
